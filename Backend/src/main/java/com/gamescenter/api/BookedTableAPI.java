@@ -1,5 +1,6 @@
 package com.gamescenter.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,10 +57,19 @@ public class BookedTableAPI {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    //TODO change this later to a proper search
     @GetMapping
     public ResponseEntity<List<BookedTableDTO>> search(
             @RequestParam(required = false) Long eventId,
-            @RequestParam(required = false) Long gameId) {
+            @RequestParam(required = false) Long gameId,
+            @RequestParam(required = false) Long hostId) {
+
+
+        if (hostId != null && eventId != null) {
+            List<BookedTableDTO> tables = new ArrayList<>();
+            tables.add(service.findByHostId(hostId, eventId));
+            return ResponseEntity.ok(tables);
+        }
 
         if (eventId != null) {
             return ResponseEntity.ok(service.findByEventId(eventId));

@@ -2,6 +2,7 @@ package com.gamescenter.service;
 
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +77,12 @@ public class BookedTableService {
 
     public List<BookedTableDTO> findByGameId(Long gameId) {
         return mapper.toDTOs(tableRepo.findByGameId(gameId));
+    }
+
+    public BookedTableDTO findByHostId(Long hostId, Long eventId) {
+        return mapper.toDTO(tableRepo.findByHostIdAndEventId(hostId, eventId)
+            .orElseThrow(() -> new EntityNotFoundException("BookedTable not found with hostId: " + hostId)));
+    
     }
 
     private Event validateAndAttachEvent(Long eventId) {
