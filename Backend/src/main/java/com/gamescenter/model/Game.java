@@ -22,6 +22,7 @@ public class Game {
     String description;
 
     LocalTime duration;
+    int minPlayers;
     int maxPlayers;
     int minAge;
 
