@@ -2,8 +2,10 @@ package com.gamescenter.mapper;
 
 import java.util.List;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import com.gamescenter.dto.GameDTO;
 import com.gamescenter.model.Game;
@@ -16,5 +18,6 @@ public interface GameMapper {
     Game toEntity (GameDTO dto);
     List<Game> toEntities (List<GameDTO> dtos);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateFromDTO(GameDTO dto, @MappingTarget Game game);
 }

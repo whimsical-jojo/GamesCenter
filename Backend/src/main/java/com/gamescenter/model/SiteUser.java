@@ -1,6 +1,7 @@
 package com.gamescenter.model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -35,7 +37,6 @@ public class SiteUser {
     @Enumerated(EnumType.STRING)
     Role role;
 
-    @ManyToOne
-    @JoinColumn(name="booked_table_id")
-    BookedTable bookedTable;
+    @ManyToMany(mappedBy = "players")
+    Set<BookedTable> bookedTables;
 }

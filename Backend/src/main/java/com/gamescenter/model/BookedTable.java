@@ -10,11 +10,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
+//TODO fix this because there's some db fuckery going on
 @Data
 @Entity
 public class BookedTable {
@@ -22,20 +25,25 @@ public class BookedTable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToMany(cascade = {
+    //Each player can have booked many tables in the past (but only one per event)
+    @ManyToMany(cascade = {
                 CascadeType.DETACH,
                 CascadeType.MERGE,
                 CascadeType.REFRESH,
                 CascadeType.PERSIST
-        }, mappedBy = "bookedTable", fetch = FetchType.LAZY)
+        }, fetch = FetchType.LAZY)
+    @JoinTable( name = "booked_table_players",
+                joinColumns = @JoinColumn(name = "booked_table_id"),
+                inverseJoinColumns = @JoinColumn(name = "player_id"))
     Set<SiteUser> players;
 
-    @OneToOne(cascade = {
+    @ManyToOne(cascade = {
                 CascadeType.DETACH,
                 CascadeType.MERGE,
                 CascadeType.REFRESH,
                 CascadeType.PERSIST
-        }, mappedBy = "bookedTable", fetch = FetchType.EAGER)
+        }, fetch = FetchType.EAGER)
+    @JoinColumn(name="host_id")
     SiteUser host;
 
 

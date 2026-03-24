@@ -3,7 +3,6 @@ package com.gamescenter.api;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +57,7 @@ public class AccountManagementAPI
         return ResponseEntity.noContent().build();
     }
 
+    /* I will add this back later
     @GetMapping("/current-user")
     public ResponseEntity<SiteUserDTO> getCurrentUser(Authentication authentication) {
         SiteUserDTO currentUser = service.getCurrentUser(authentication.getName());
@@ -65,6 +65,6 @@ public class AccountManagementAPI
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.status(200).body(currentUser);
-    }
+    } */
 
 }
