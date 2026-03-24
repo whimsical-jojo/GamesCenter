@@ -18,5 +18,6 @@ public interface SiteUserMapper {
     SiteUser toEntity (SiteUserDTO dto);
     List<SiteUser> toEntities (List<SiteUserDTO> dtos);
 
+    @Mapping(target = "bookedTable", ignore = true)
     void updateFromDTO(SiteUserDTO dto, @MappingTarget SiteUser user);
 }
